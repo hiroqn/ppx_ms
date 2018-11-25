@@ -14,12 +14,13 @@ let
   });
 in
 stdenv.mkDerivation {
-  name = "ppx_ms";
+  name = "ppx_ms_test";
   src = gitignore.gitignoreSourceAux "" ./.;
-  buildInputs = [ ocaml ] ++ (with ocamlPackages; [ ocaml-migrate-parsetree angstrom findlib ]);
+  buildInputs = [ ocaml ] ++ (with ocamlPackages; [ ocaml-migrate-parsetree angstrom findlib qcheck ounit ]);
   phase = [ "installPhase" ];
   installPhase = ''
     mkdir -p $out/bin
-    ocamlfind ocamlopt -package ocaml-migrate-parsetree,angstrom -linkpkg -o $out/bin/ppx_ms -I src src/ppx_ms_parser.ml src/ppx_ms.ml
+    ocamlfind ocamlopt -package qcheck,angstrom -linkpkg -I src -o $out/bin/test src/ppx_ms_parser.ml test/test_parser.ml
+    $out/bin/test
   '';
 }
