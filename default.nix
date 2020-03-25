@@ -4,12 +4,12 @@ let
   gitignore = import (fetchFromGitHub {
     owner = "siers";
     repo = "nix-gitignore";
-    rev = "6dd9ece00991003c0f5d3b4da3f29e67956d266e";
-    sha256 = "0jn5yryf511shdp8g9pwrsxgk57p6xhpb79dbi2sf5hzlqm2csy4";
+    rev = "221d4aea15b4b7cc957977867fd1075b279837b3";
+    sha256 = "0xgxzjazb6qzn9y27b2srsp2h9pndjh3zjpbxpmhz0awdi7h8y9m";
   }) { inherit lib; };
   ocaml = callPackage ./nix/ocaml.nix { };
   mkOcamlPackages =  (callPackage <nixpkgs/pkgs/top-level/ocaml-packages.nix> {}).mkOcamlPackages;
-  ocamlPackages = mkOcamlPackages ocaml (self: super: { 
+  ocamlPackages = mkOcamlPackages ocaml (self: super: {
     angstrom = self.callPackage ./nix/angstrom.nix {};
   });
 in
